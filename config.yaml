@@ -1,0 +1,9 @@
+server:
+  host: "localhost"
+  port: 8081
+
+pdp:
+  data_dir: "/home/abhay/.pdp-server"
+  lotus_url: "wss://wss.calibration.node.glif.io/apigw/lotus/rpc/v1"
+  eth_address: "0x2F3DAD0e140B7c93a13DC54329725704063b9d4A"  # Your actual imported address
+  key_file: "/home/abhay/service.pem"  # We'll create this 
