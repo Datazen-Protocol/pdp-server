@@ -9,7 +9,7 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/your-org/pdp-server/pkg/models"
+	"github.com/Datazen-Protocol/pdp-server/pkg/models"
 )
 
 // TransactionWatcher monitors blockchain transactions and updates our isolated database

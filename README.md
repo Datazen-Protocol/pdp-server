@@ -11,13 +11,18 @@ cd pdp-server
 go mod download
 go build -o pdp-server cmd/server/main.go
 
-# Configure (copy and edit config.yaml)
+# Generate wallet (private key)
+openssl ecparam -genkey -name secp256k1 -noout -out service.pem
+chmod 600 service.pem
+
+# Configure
 cp config.yaml.example config.yaml
+# Edit config.yaml with your settings
 
-# Run the server
-./pdp-server
-
-# Test all functionality
+# Fund your wallet
+# 1. Start server to see your address: ./pdp-server
+# 2. Get testnet FIL from: https://faucet.calibration.fildev.network/
+# 3. Restart server and test
 ./test_complete.sh
 ```
 
@@ -106,6 +111,26 @@ piri:
 
 🔧 [Complete Configuration Guide](docs/DEPLOYMENT.md#configuration)
 
+## 🔑 Wallet Setup
+
+The server needs a private key to sign blockchain transactions:
+
+```bash
+# Generate new private key
+openssl ecparam -genkey -name secp256k1 -noout -out service.pem
+chmod 600 service.pem
+
+# Start server to see your Ethereum address
+./pdp-server
+# Look for: "Wallet address: 0x..."
+
+# Fund your address with testnet FIL
+# Visit: https://faucet.calibration.fildev.network/
+# Enter your address and request tokens
+```
+
+**That's it!** No need for Lotus node setup or Piri CLI - just a simple private key and testnet funds.
+
 ## 🧪 Testing
 
 Run the comprehensive end-to-end test suite:
@@ -140,9 +165,9 @@ The test suite validates:
 - **Dependencies**: All Go modules auto-installed via `go mod download`
 
 ### External Services (Optional)
-- **Lotus Node**: Use hosted endpoint or run your own
-- **Ethereum RPC**: Use public endpoints or run your own
-- **Wallet**: Existing Piri wallet or create new one
+- **Lotus Node**: Use hosted endpoint (default) or run your own
+- **Ethereum RPC**: Use public endpoints or run your own  
+- **Testnet Funds**: Get free FIL from [Calibration Faucet](https://faucet.calibration.fildev.network/)
 
 ## 🔧 Development
 

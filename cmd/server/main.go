@@ -7,21 +7,21 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/Datazen-Protocol/pdp-server/pkg/api"
+	myBlobstore "github.com/Datazen-Protocol/pdp-server/pkg/blobstore"
+	"github.com/Datazen-Protocol/pdp-server/pkg/config"
+	"github.com/Datazen-Protocol/pdp-server/pkg/piece"
+	"github.com/Datazen-Protocol/pdp-server/pkg/piri"
+	"github.com/Datazen-Protocol/pdp-server/pkg/proofset"
+	"github.com/Datazen-Protocol/pdp-server/pkg/service"
+	"github.com/Datazen-Protocol/pdp-server/pkg/wallet"
+	"github.com/Datazen-Protocol/pdp-server/pkg/watcher"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/glebarez/sqlite"
 	"github.com/storacha/piri/pkg/store/blobstore"
-	"github.com/your-org/pdp-server/pkg/api"
-	myBlobstore "github.com/your-org/pdp-server/pkg/blobstore"
-	"github.com/your-org/pdp-server/pkg/config"
-	"github.com/your-org/pdp-server/pkg/piece"
-	"github.com/your-org/pdp-server/pkg/piri"
-	"github.com/your-org/pdp-server/pkg/proofset"
-	"github.com/your-org/pdp-server/pkg/service"
-	"github.com/your-org/pdp-server/pkg/wallet"
-	"github.com/your-org/pdp-server/pkg/watcher"
 	"gorm.io/gorm"
 
-	"github.com/your-org/pdp-server/pkg/models"
+	"github.com/Datazen-Protocol/pdp-server/pkg/models"
 )
 
 func main() {

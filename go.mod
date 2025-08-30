@@ -1,4 +1,4 @@
-module github.com/your-org/pdp-server
+module github.com/Datazen-Protocol/pdp-server
 
 go 1.24.5
 
@@ -11,6 +11,7 @@ require (
 	github.com/filecoin-project/go-fil-commp-hashhash v0.2.0
 	github.com/filecoin-project/go-state-types v0.16.0-rc1
 	github.com/filecoin-project/lotus v1.32.0-rc1
+	github.com/glebarez/sqlite v1.11.0
 	github.com/google/uuid v1.6.0
 	github.com/ipfs/go-cid v0.5.0
 	github.com/ipfs/go-datastore v0.8.2
@@ -21,7 +22,6 @@ require (
 	github.com/storacha/piri v0.0.11
 	gopkg.in/yaml.v3 v3.0.1
 	gorm.io/datatypes v1.2.5
-	gorm.io/driver/sqlite v1.5.7
 	gorm.io/gorm v1.26.1
 )
 
@@ -72,7 +72,6 @@ require (
 	github.com/gabriel-vasile/mimetype v1.4.4 // indirect
 	github.com/gbrlsnchs/jwt/v3 v3.0.1 // indirect
 	github.com/glebarez/go-sqlite v1.21.2 // indirect
-	github.com/glebarez/sqlite v1.11.0 // indirect
 	github.com/go-kit/log v0.2.1 // indirect
 	github.com/go-logfmt/logfmt v0.6.0 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect

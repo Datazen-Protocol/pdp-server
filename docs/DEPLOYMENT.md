@@ -52,20 +52,92 @@ piri:
 
 ### 3. Wallet Setup
 
-#### Option A: Use Existing Piri Wallet
-```bash
-# Copy existing wallet files
-cp -r ~/.storacha/wallet /opt/pdp-server/wallet
-```
+The `service.pem` file is simply a private key in PEM format. You have several options:
 
-#### Option B: Create New Wallet
+#### Option A: Generate New Private Key (Recommended)
 ```bash
-# Generate new private key
+# Generate new secp256k1 private key
 openssl ecparam -genkey -name secp256k1 -noout -out service.pem
 
 # Set proper permissions
 chmod 600 service.pem
+
+# Get your Ethereum address for funding
+openssl ec -in service.pem -pubkey -noout | openssl ec -pubin -text -noout
 ```
+
+#### Option B: Use Existing Private Key
+If you already have a private key in hex format:
+```bash
+# Convert hex private key to PEM format
+echo "-----BEGIN EC PRIVATE KEY-----" > service.pem
+echo "YOUR_HEX_PRIVATE_KEY_HERE" | xxd -r -p | base64 >> service.pem
+echo "-----END EC PRIVATE KEY-----" >> service.pem
+chmod 600 service.pem
+```
+
+#### Option C: Use Existing Piri Wallet
+```bash
+# Copy existing wallet files (if you have Piri setup)
+cp -r ~/.storacha/wallet /opt/pdp-server/wallet
+```
+
+#### Get Your Ethereum Address & Fund It
+
+After generating your private key, you need to:
+
+1. **Get your Ethereum address:**
+```bash
+# Simple method: The server will show your address when it starts
+./pdp-server
+
+# Or use this helper script
+cat > get_address.go << 'EOF'
+package main
+import (
+    "crypto/ecdsa"
+    "crypto/x509"
+    "encoding/pem"
+    "fmt"
+    "io/ioutil"
+    "log"
+    "github.com/ethereum/go-ethereum/common"
+    "github.com/ethereum/go-ethereum/crypto"
+)
+func main() {
+    keyBytes, err := ioutil.ReadFile("service.pem")
+    if err != nil {
+        log.Fatal(err)
+    }
+    block, _ := pem.Decode(keyBytes)
+    key, err := x509.ParseECPrivateKey(block.Bytes)
+    if err != nil {
+        log.Fatal(err)
+    }
+    publicKey := key.Public().(*ecdsa.PublicKey)
+    address := crypto.PubkeyToAddress(*publicKey)
+    fmt.Printf("Your Ethereum address: %s\n", address.Hex())
+}
+EOF
+
+go mod init temp && go mod tidy && go run get_address.go
+```
+
+2. **Fund your address on Filecoin Calibration testnet:**
+   - Visit the [Calibration Faucet](https://faucet.calibration.fildev.network/)
+   - Enter your Ethereum address
+   - Request test FIL tokens
+   - Wait for confirmation (usually takes a few minutes)
+
+3. **Verify your balance:**
+```bash
+# The server will show your balance when it starts
+./pdp-server
+
+# Or check manually at: https://calibration.filscan.io/
+```
+
+**Important**: You need testnet FIL tokens to create proof sets and submit transactions on the Filecoin Calibration network.
 
 ### 4. Directory Structure Setup
 

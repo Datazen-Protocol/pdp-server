@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/your-org/pdp-server/pkg/models"
+	"github.com/Datazen-Protocol/pdp-server/pkg/models"
 	"gorm.io/gorm"
 )
 
